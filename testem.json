@@ -1,0 +1,16 @@
+{
+  "framework": "mocha",
+  "launch_in_dev": ["Chrome"],
+  "before_tests": "coffee -co dist/ src/ && coffee -co test/compiled/ test/*.coffee",
+  "src_files": [
+    "test/lib/chai.js",
+    "src/fragment.coffee",
+    "test/*.coffee"
+  ],
+  "serve_files": [
+    "dist/fragment.js",
+    "test/lib/chai.js",
+    "test/compiled/*.js"
+  ],
+  "on_exit": "rm -rf test/compiled"
+}
