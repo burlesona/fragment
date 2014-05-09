@@ -166,7 +166,7 @@
       assert.equal("DIV", f.firstChild.tagName);
       return assert.equal("", f.firstChild.innerText);
     });
-    return it("should return nodes from function calls", function() {
+    it("should return nodes from function calls", function() {
       var f;
       f = _.f("== @myFunc()", {
         myFunc: function() {
@@ -174,6 +174,16 @@
         }
       });
       return assert.equal("P", f.firstChild.tagName);
+    });
+    it("should append whitespace after content starting with '", function() {
+      var f;
+      f = _.f("p\n  ' Hello World!");
+      return assert.equal("Hello World! ", f.firstChild.innerText);
+    });
+    return it("should allow HTML escaped entities", function() {
+      var f;
+      f = _.f("p &nbsp;1&nbsp;2&nbsp;3&nbsp;");
+      return assert.equal("\xA01\xA02\xA03\xA0", f.firstChild.innerText);
     });
   });
 

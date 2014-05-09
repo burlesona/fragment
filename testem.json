@@ -4,11 +4,11 @@
   "before_tests": "coffee -co dist/ src/ && coffee -co test/compiled/ test/*.coffee",
   "src_files": [
     "test/lib/chai.js",
-    "src/fragment.coffee",
+    "src/*.coffee",
     "test/*.coffee"
   ],
   "serve_files": [
-    "dist/fragment.js",
+    "dist/*.js",
     "test/lib/chai.js",
     "test/compiled/*.js"
   ],

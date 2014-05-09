@@ -159,3 +159,16 @@ describe "Fragment", ->
     == @myFunc()
     """,{myFunc:-> document.createElement('p')}
     assert.equal "P", f.firstChild.tagName
+
+  it "should append whitespace after content starting with '", ->
+    f = _.f """
+    p
+      ' Hello World!
+    """
+    assert.equal "Hello World! ", f.firstChild.innerText
+
+  it "should allow HTML escaped entities", ->
+    f = _.f """
+    p &nbsp;1&nbsp;2&nbsp;3&nbsp;
+    """
+    assert.equal "\xA01\xA02\xA03\xA0", f.firstChild.innerText
