@@ -38,9 +38,10 @@ It's a little nicer using Coffeescript, which has easier support for multi-line 
 
 ```
 template = """
-p I'm just a paragraph
-p = @variable
-p == @node()
+.wrapper
+  p I'm just a paragraph
+  p = @variable
+  p == @node()
 """
 
 fragment = Fragment.parse template,
@@ -95,4 +96,18 @@ There are four directives available:
 - ' creates a text node with trailing whitespace
 - = evaluates a property or function, expecting a string
 - == evaluates a property or function, expecting a DOMElement
+
+### Indentation
+
+Fragment is whitespace-sensitive, like Slim, Haml, Jade, and expects
+you to use two spaces to nest content. Note that you can either include
+content inline (beside a selector) or nested under it, but not both.
+
+### Miscelaneous
+
+When you insert a node into a template you're placing the actual in-memory
+object into a document fragment. You can only place a reference to a node in
+a single place, if you refer to it a second time it will get moved to the second
+location. If you want to place multiple copies of DOM nodes you'll need to clone
+them first.
 
