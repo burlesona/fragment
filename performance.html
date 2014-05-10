@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fragment Performance Test</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="dist/fragment.js"></script>
+    <script src="dist/perf.js"></script>
+    <style>
+      body { margin: 20px; font-family: "Helvetica Neue", sans-serif; }
+      code { display: block; padding: 10px; margin: 10px 0; background: #EEE; white-space: pre; }
+      h1 small { color: #AAA; }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <p>
+        Run Comparison
+        <input type="text" id="count" value="100"></input>
+        Times.
+        <button id="run">Go</button>
+        <button id="clear">Clear</button>
+      </p>
+      <p>
+        Open the console to see the results.
+      </p>
+    <div id="fixture"></div>
+    <script>init()</script>
+  </body>
+</html>
