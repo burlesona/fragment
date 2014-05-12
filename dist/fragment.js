@@ -35,17 +35,29 @@
         line.tagName = t;
       }
       if (a) {
-        line.attributes = this._prepare(a);
+        line.attributes = this._parseAttributes(a);
       }
       if (c) {
         line.content = this._parseContent(c);
       }
       return line;
     },
-    _prepare: function(string) {
+    _prepare: function(string, extra) {
       var safe;
-      safe = string.replace("@", "this.");
+      safe = string.replace(/@/g, "this.");
+      if (extra) {
+        safe = extra(safe);
+      }
       return new Function("return " + safe + ";");
+    },
+    _parseAttributes: function(string) {
+      if (/\:/.test(string)) {
+        return this._prepare(string);
+      } else {
+        return this._prepare(string, function(s) {
+          return s.replace(/\{|\}/g, "");
+        });
+      }
     },
     _parseContent: function(content) {
       var r;

@@ -22,13 +22,20 @@ root.Fragment =
     line = {}
     line.indent = (i.length/2)
     line.tagName = t if t
-    line.attributes = @_prepare(a) if a
+    line.attributes = @_parseAttributes(a) if a
     line.content = @_parseContent(c) if c
     line
 
-  _prepare: (string) ->
-    safe = string.replace("@","this.")
+  _prepare: (string, extra) ->
+    safe = string.replace(/@/g,"this.")
+    safe = extra(safe) if extra
     new Function("return #{safe};")
+
+  _parseAttributes: (string) ->
+    if /\:/.test(string)
+      @_prepare string
+    else
+      @_prepare string, (s) -> s.replace(/\{|\}/g,"")
 
   _parseContent: (content) ->
     switch
