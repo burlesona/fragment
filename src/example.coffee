@@ -45,10 +45,17 @@ code
 
   p == @node()
 
-  p Pretty cool huh?
+  p
+    | Pretty cool huh? Now try this input:
+    br
+    == @input
+
 """
 
 root.init = ->
+  input = document.createElement('input')
+  input.type = "text"
+
   f = Fragment.parse template,
     pipeMessage: "| creates text nodes with no trailing space."
     aposMessage: "' creates text nodes with a trailing space."
@@ -58,5 +65,8 @@ root.init = ->
       b.addEventListener 'click', ->
         console.log "You clicked my node!"
       b
+    input: input
+
+  root.myInput = input
 
   document.body.appendChild(f)
