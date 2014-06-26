@@ -121,7 +121,7 @@
       return frag;
     },
     _makeNode: function(obj, data) {
-      var c, el, node, result, tmp;
+      var c, node, result;
       if (obj.tagName) {
         node = this._makeElement(obj, data);
         if (c = obj.content) {
@@ -144,17 +144,12 @@
         }
       } else if (c = obj.content) {
         if (c.type === 'string') {
-          tmp = document.createElement('div');
-          tmp.innerHTML = c.body;
-          node = document.createDocumentFragment();
-          while (el = tmp.firstChild) {
-            node.appendChild(el);
-          }
+          node = this._fragmentFromString(c.body);
         }
         if (c.type === 'expression') {
           result = c.body.call(data);
           if (result) {
-            node = document.createTextNode(result);
+            node = this._fragmentFromString(result);
           }
         } else if (c.type === 'element') {
           result = c.body.call(data);
@@ -183,6 +178,16 @@
         }
       }
       return el;
+    },
+    _fragmentFromString: function(html) {
+      var el, frag, tmp;
+      tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      frag = document.createDocumentFragment();
+      while (el = tmp.firstChild) {
+        frag.appendChild(el);
+      }
+      return frag;
     }
   };
 

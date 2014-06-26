@@ -136,6 +136,24 @@ describe "Fragment", ->
       """
       assert.equal "SPAN", f.firstChild.tagName
 
+    it "should pass through HTML after =", ->
+      console.log 'starting html = test'
+      f = _.f """
+      = @a
+      """, {a: "<span>Hello</span>"}
+
+      assert.equal "Hello", f.firstChild.textContent
+      assert.equal "SPAN", f.firstChild.tagName
+
+    it "should pass through HTML from functions after =", ->
+      console.log 'starting html = test'
+      f = _.f """
+      = @a()
+      """, {a: -> "<span>Hello</span>"}
+
+      assert.equal "Hello", f.firstChild.textContent
+      assert.equal "SPAN", f.firstChild.tagName
+
   describe "Attributes", ->
 
     it "should accept attributes as json behind a tag", ->

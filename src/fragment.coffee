@@ -88,13 +88,10 @@ root.Fragment =
 
     else if c = obj.content
       if c.type is 'string'
-        tmp = document.createElement 'div'
-        tmp.innerHTML = c.body
-        node = document.createDocumentFragment()
-        node.appendChild(el) while el = tmp.firstChild
+        node = @_fragmentFromString(c.body)
       if c.type is 'expression'
         result = c.body.call(data)
-        node = document.createTextNode result if result
+        node = @_fragmentFromString(result) if result
       else if c.type is 'element'
         result = c.body.call(data)
         node = result if result
@@ -111,4 +108,12 @@ root.Fragment =
     if obj.attributes
       el.setAttribute(k,v) for k,v of obj.attributes.call(data)
     el
+
+  _fragmentFromString: (html) ->
+    tmp = document.createElement 'div'
+    tmp.innerHTML = html
+    frag = document.createDocumentFragment()
+    frag.appendChild(el) while el = tmp.firstChild
+    frag
+
 
