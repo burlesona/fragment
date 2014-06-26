@@ -88,7 +88,10 @@ root.Fragment =
 
     else if c = obj.content
       if c.type is 'string'
-        node = document.createTextNode c.body
+        tmp = document.createElement 'div'
+        tmp.innerHTML = c.body
+        node = document.createDocumentFragment()
+        node.appendChild(el) while el = tmp.firstChild
       if c.type is 'expression'
         result = c.body.call(data)
         node = document.createTextNode result if result

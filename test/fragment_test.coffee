@@ -6,11 +6,6 @@ _ =
   f: (template,data) ->
     Fragment.parse(template,data)
 
-  h: (fragment) ->
-    div = document.createElement()
-    div.appendChild(fragment)
-    div.innerHTML
-
 describe "Fragment", ->
   describe "API", ->
     it "should exist", ->
@@ -120,6 +115,26 @@ describe "Fragment", ->
       == @myFunc()
       """,{myFunc:-> document.createElement('p')}
       assert.equal "P", f.firstChild.tagName
+
+  describe "HTML Strings", ->
+    it "should pass through HTML strings after selectors", ->
+      f = _.f """
+      p <span class="test">Hello!</span>
+      """
+      p = f.firstChild
+      assert.equal "SPAN", p.firstChild.tagName
+
+    it "should pass through HTML strings after |", ->
+      f = _.f """
+      | <span class="test">Hello!</span>
+      """
+      assert.equal "SPAN", f.firstChild.tagName
+
+    it "should pass through HTML strings after '", ->
+      f = _.f """
+      ' <span class="test">Hello!</span>
+      """
+      assert.equal "SPAN", f.firstChild.tagName
 
   describe "Attributes", ->
 

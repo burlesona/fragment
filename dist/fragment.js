@@ -121,7 +121,7 @@
       return frag;
     },
     _makeNode: function(obj, data) {
-      var c, node, result;
+      var c, el, node, result, tmp;
       if (obj.tagName) {
         node = this._makeElement(obj, data);
         if (c = obj.content) {
@@ -144,7 +144,12 @@
         }
       } else if (c = obj.content) {
         if (c.type === 'string') {
-          node = document.createTextNode(c.body);
+          tmp = document.createElement('div');
+          tmp.innerHTML = c.body;
+          node = document.createDocumentFragment();
+          while (el = tmp.firstChild) {
+            node.appendChild(el);
+          }
         }
         if (c.type === 'expression') {
           result = c.body.call(data);
