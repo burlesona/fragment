@@ -6,14 +6,17 @@ living DOM nodes.
 
 **Why?**
 
-Because when you have a deep hierarchy of views and subviews with
+1) Because programming with live references to DOM nodes is lighter, simpler,
+and cleaner than any other way of creating two-way bindings in the browser. Nobody
+should have to live with this: http://colynb.com/posts/dom-horror-with-emberjs.html
+
+2) Because when you have a deep hierarchy of views and subviews with
 lots of complex events and they need to be dynamically added and
 removed from the DOM frequently (ie - if you're building a one-page app),
 you're going to eventually run into a lot of mess that comes from
 keeping the hierarchy of subviews straight.
 
-If you can create and insert real dom nodes directly in your templates,
-this gets much easier.
+When your template is made of real DOM Elements, your life is better.
 
 
 Overview
